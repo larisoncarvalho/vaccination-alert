@@ -49,10 +49,12 @@ def availableAlertCallback(context):
 
         context.bot.send_message(chat_id=chat_id, text=response,timeout=None)
 
-# def checkJobs(update,context):
-#     if context.job_queue.jobs is not None:
-#         for job in context.job_queue.jobs:
-#             context.bot.send_message(chat_id=chat_id, text=job.name+" is "+job.enabled,timeout=None)
+def checkJobs(update,context):
+    if context.job_queue.jobs():
+        for job in context.job_queue.jobs():
+            context.bot.send_message(chat_id=update.effective_chat.id, text=job.name+" is "+str(job.enabled),timeout=None)
+    else:
+        context.bot.send_message(chat_id=update.effective_chat.id, text="No jobs running",timeout=None)
 
 def checkAvailable(district,dose):
     if int(time.time())-lastRefreshTime > 30:
@@ -110,7 +112,7 @@ if __name__ == '__main__':
 
     dispatcher.add_handler(CommandHandler('start', startCommand)) # Accessed via /start
     dispatcher.add_handler(CommandHandler('alert_district', availableAlert)) # Accessed via /alert_district
-    # dispatcher.add_handler(CommandHandler('status', checkJobs)) # Accessed via /status
+    dispatcher.add_handler(CommandHandler('status', checkJobs)) # Accessed via /status
 
     updater.start_polling() # Start the bot
 
