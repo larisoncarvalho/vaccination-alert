@@ -2,7 +2,9 @@
 
 #### A Telegram bot that alerts you when vaccination slots are available for the 18-45 age group in Goa.
 
-### Installation
+This bot can be easily modified to run on other platforms like discord and to check for vaccination slots in other states and age groups.
+
+### Installation and usage
 Install requirements using
 `pip install --no-cache-dir -r requirements.txt`
 
@@ -15,10 +17,17 @@ Start the bot by running
 `python run.py`
 
 You can create an alert by running the command `/alert_district <district> <dose>`
-<district> can be north or south
-<dose> can be 1 or 2
+`district` can be north or south
+`dose` can be 1 or 2
 
-This bot can be easily modified to run on other platforms like discord and to check for vaccination slots in other states and age groups.
+#### Docker
+You can also run this bot in a container by building using the provided dockerfile.
+
+Replace `<token>` in the dockerfile with your Telegram bot token
+Build the image using
+`docker build -t telegram-cowin-bot .`
+Run the image using
+`docker run telegram-cowin-bot`
 
 ### Disclaimer
 Please do not use this bot as your only source of information. This is only meant to be an extra tool to aid you.
